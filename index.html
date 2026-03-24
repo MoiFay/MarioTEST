@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#6ec8ff" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>Super Plumber Sprint DX</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Mario-like web autonome</p>
+          <h1>Super Plumber Sprint DX</h1>
+          <p class="intro">
+            Une version plus complete, jouable sans installation: trois niveaux,
+            score, musique retro, effets sonores et rendu pixel-art original.
+          </p>
+          <div class="controls">
+            <span>Deplacement: Fleches ou A/D</span>
+            <span>Saut: Espace, W ou Fleche Haut</span>
+            <span>Pause: P</span>
+            <span>Muet: M</span>
+          </div>
+          <div class="action-row">
+            <button id="startButton" type="button">Demarrer</button>
+            <button id="soundToggle" type="button" class="secondary-button">
+              Son: ON
+            </button>
+            <button id="fullscreenButton" type="button" class="secondary-button">
+              Plein ecran
+            </button>
+          </div>
+        </div>
+
+        <aside class="hud-panel">
+          <div class="stat">
+            <span class="label">Niveau</span>
+            <strong id="levelText">- / 3</strong>
+          </div>
+          <div class="stat">
+            <span class="label">Score</span>
+            <strong id="scoreText">0</strong>
+          </div>
+          <div class="stat">
+            <span class="label">Pieces</span>
+            <strong id="coinCount">0 / 0</strong>
+          </div>
+          <div class="stat">
+            <span class="label">Temps</span>
+            <strong id="timeText">--</strong>
+          </div>
+          <div class="stat">
+            <span class="label">Vies</span>
+            <strong id="livesCount">3</strong>
+          </div>
+          <div class="stat">
+            <span class="label">Etat</span>
+            <strong id="statusText">Ecran titre</strong>
+          </div>
+          <button id="restartButton" type="button">Rejouer le niveau</button>
+        </aside>
+      </section>
+
+      <section class="game-shell" id="gameShell">
+        <div class="canvas-frame">
+          <canvas
+            id="game"
+            width="960"
+            height="540"
+            aria-label="Jeu de plateforme"
+          ></canvas>
+        </div>
+        <p class="microcopy">
+          Appuie sur Demarrer ou touche le jeu pour lancer la partie. Sur
+          tablette, le mode paysage est le plus confortable.
+        </p>
+        <p class="orientation-hint" id="orientationHint" hidden>
+          Passe la tablette en paysage pour avoir plus de place pour le niveau
+          et les commandes tactiles.
+        </p>
+
+        <div class="mobile-controls" aria-label="Commandes tactiles">
+          <div class="control-cluster move-cluster">
+            <button data-action="left" type="button" class="touch-button">
+              <span class="touch-icon">&larr;</span>
+              <span class="touch-label">Gauche</span>
+            </button>
+            <button data-action="right" type="button" class="touch-button">
+              <span class="touch-icon">&rarr;</span>
+              <span class="touch-label">Droite</span>
+            </button>
+          </div>
+          <div class="control-cluster action-cluster">
+            <button data-action="jump" type="button" class="touch-button jump-button">
+              <span class="touch-icon">&uarr;</span>
+              <span class="touch-label">Saut</span>
+            </button>
+            <button data-action="pause" type="button" class="touch-button pause-button">
+              <span class="touch-icon">II</span>
+              <span class="touch-label">Pause</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
