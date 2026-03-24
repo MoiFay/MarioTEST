@@ -172,7 +172,7 @@ function stone(x, y, w = 96, h = 18) {
 }
 
 function coin(x, y) {
-  return { x, y, r: 12 };
+  return { x, y: y < 340 ? y + 18 : y, r: 18 };
 }
 
 function enemy(x, y, minX, maxX, vx) {
@@ -230,13 +230,13 @@ const LEVELS = [
       ground(1240, 472, 520),
       ground(1820, 472, 320),
       ground(2200, 472, 320),
-      brick(210, 376, 96),
-      brick(356, 324, 96),
-      brick(508, 272, 96),
-      brick(1080, 332, 96),
-      brick(1400, 320, 120),
-      stone(1548, 264, 72, 18),
-      brick(1880, 356, 96),
+      brick(210, 376, 108),
+      brick(356, 340, 108),
+      brick(508, 300, 108),
+      brick(1080, 340, 108),
+      brick(1400, 344, 132),
+      stone(1548, 292, 96, 18),
+      brick(1880, 356, 108),
     ],
     coins: [
       coin(240, 336),
@@ -297,15 +297,15 @@ const LEVELS = [
       ground(1660, 472, 360),
       ground(2070, 452, 320, 110),
       ground(2440, 472, 320),
-      brick(220, 376, 96),
-      brick(380, 324, 96),
-      brick(540, 272, 96),
-      stone(718, 224, 72, 18),
-      brick(1020, 348, 96),
-      brick(1490, 300, 96),
-      stone(1800, 340, 96),
-      brick(2140, 300, 120),
-      stone(2310, 248, 72),
+      brick(220, 376, 108),
+      brick(380, 340, 108),
+      brick(540, 300, 108),
+      stone(718, 260, 108, 18),
+      brick(1020, 348, 108),
+      brick(1490, 324, 108),
+      stone(1800, 340, 108),
+      brick(2140, 324, 132),
+      stone(2310, 272, 104),
     ],
     coins: [
       coin(248, 336),
@@ -368,14 +368,14 @@ const LEVELS = [
       ground(1740, 472, 420),
       ground(2210, 432, 360, 130),
       ground(2610, 472, 390),
-      stone(210, 372, 96),
-      brick(380, 320, 96),
-      stone(560, 268, 72),
-      brick(1050, 360, 96),
-      stone(1480, 292, 96),
-      brick(1830, 350, 120),
-      stone(2320, 300, 96),
-      brick(2500, 252, 120),
+      stone(210, 372, 108),
+      brick(380, 336, 108),
+      stone(560, 288, 108),
+      brick(1050, 360, 108),
+      stone(1480, 308, 108),
+      brick(1830, 350, 132),
+      stone(2320, 312, 108),
+      brick(2500, 276, 132),
     ],
     coins: [
       coin(240, 332),
@@ -680,7 +680,7 @@ function queueJump() {
   if (state.mode !== "playing") {
     return;
   }
-  state.jumpBuffer = 10;
+  state.jumpBuffer = 12;
 }
 
 function loadLevel(index) {
@@ -903,7 +903,7 @@ function handlePlayerMovement(step) {
   }
 
   if (state.jumpBuffer > 0 && player.coyoteFrames > 0) {
-    player.vy = -13;
+    player.vy = -13.8;
     player.onGround = false;
     player.coyoteFrames = 0;
     state.jumpBuffer = 0;
@@ -911,7 +911,7 @@ function handlePlayerMovement(step) {
   }
 
   if (!input.jump && player.vy < -4) {
-    player.vy += 0.45 * step;
+    player.vy += 0.28 * step;
   }
 
   player.vy = Math.min(player.vy + 0.68 * step, 14);
