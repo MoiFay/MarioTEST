@@ -159,6 +159,9 @@ const MUSIC_TRACK = [
   { freq: 392.0, bass: 146.83, duration: 0.25 },
 ];
 
+const PRIMARY_JUMP_VELOCITY = -13.8;
+const DOUBLE_JUMP_BOOST = Math.abs(PRIMARY_JUMP_VELOCITY) * 0.5;
+
 function ground(x, y, w, h = 88) {
   return { x, y, w, h, kind: "ground" };
 }
@@ -514,6 +517,7 @@ function createPlayer(spawn) {
     facing: 1,
     onGround: false,
     coyoteFrames: 0,
+    jumpPhase: 0,
   };
 }
 
@@ -871,11 +875,28 @@ function resolveVerticalCollisions(player) {
       player.vy = 0;
       player.onGround = true;
       player.coyoteFrames = 8;
+      player.jumpPhase = 0;
     } else if (player.vy < 0 && player.prevY >= platform.y + platform.h - 4) {
       player.y = platform.y + platform.h;
       player.vy = 0;
     }
   });
+}
+
+function triggerPrimaryJump(player) {
+  player.vy = PRIMARY_JUMP_VELOCITY;
+  player.onGround = false;
+  player.coyoteFrames = 0;
+  player.jumpPhase = 1;
+  state.jumpBuffer = 0;
+  playFx("jump");
+}
+
+function triggerDoubleJump(player) {
+  player.vy = Math.min(player.vy - DOUBLE_JUMP_BOOST, -DOUBLE_JUMP_BOOST);
+  player.jumpPhase = 2;
+  state.jumpBuffer = 0;
+  playFx("jump");
 }
 
 function handlePlayerMovement(step) {
@@ -903,11 +924,9 @@ function handlePlayerMovement(step) {
   }
 
   if (state.jumpBuffer > 0 && player.coyoteFrames > 0) {
-    player.vy = -13.8;
-    player.onGround = false;
-    player.coyoteFrames = 0;
-    state.jumpBuffer = 0;
-    playFx("jump");
+    triggerPrimaryJump(player);
+  } else if (state.jumpBuffer > 0 && !player.onGround && player.jumpPhase === 1) {
+    triggerDoubleJump(player);
   }
 
   if (!input.jump && player.vy < -4) {
@@ -1635,7 +1654,7 @@ function drawOverlay() {
     lines = [
       "Un platformer maison avec un rendu plus propre et plus lisible.",
       "Appuie sur Entree, Demarrer ou touche le jeu pour jouer.",
-      "Sur tablette, utilise les gros boutons fixes en bas de l'ecran.",
+      "Sur tablette, utilise les boutons transparents poses sur le jeu.",
     ];
   } else if (state.mode === "paused") {
     lines = ["Appuie sur P pour reprendre.", "R pour rejouer le niveau."];
@@ -1846,6 +1865,9 @@ document.querySelectorAll("[data-action]").forEach((button) => {
   const applyState = (pressed) => {
     activateAudio();
     button.classList.toggle("is-pressed", pressed);
+    if (pressed && state.mode !== "playing") {
+      handleStartIntent();
+    }
     if (action === "left") {
       input.left = pressed;
     }

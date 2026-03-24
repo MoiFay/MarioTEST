@@ -77,38 +77,39 @@
             height="540"
             aria-label="Jeu de plateforme"
           ></canvas>
+
+          <div class="mobile-controls" aria-label="Commandes tactiles">
+            <div class="control-cluster move-cluster">
+              <button data-action="left" type="button" class="touch-button">
+                <span class="touch-icon">&larr;</span>
+                <span class="touch-label">Gauche</span>
+              </button>
+              <button data-action="right" type="button" class="touch-button">
+                <span class="touch-icon">&rarr;</span>
+                <span class="touch-label">Droite</span>
+              </button>
+            </div>
+            <div class="control-cluster action-cluster">
+              <button data-action="jump" type="button" class="touch-button jump-button">
+                <span class="touch-icon">&uarr;</span>
+                <span class="touch-label">Saut</span>
+              </button>
+              <button data-action="pause" type="button" class="touch-button pause-button">
+                <span class="touch-icon">II</span>
+                <span class="touch-label">Pause</span>
+              </button>
+            </div>
+          </div>
         </div>
         <p class="microcopy">
           Appuie sur Demarrer ou touche le jeu pour lancer la partie. Sur
-          tablette, le mode paysage est le plus confortable.
+          tablette, le mode paysage est le plus confortable. En l'air, appuie
+          une deuxieme fois pour faire un double saut plus court.
         </p>
         <p class="orientation-hint" id="orientationHint" hidden>
           Passe la tablette en paysage pour avoir plus de place pour le niveau
           et les commandes tactiles.
         </p>
-
-        <div class="mobile-controls" aria-label="Commandes tactiles">
-          <div class="control-cluster move-cluster">
-            <button data-action="left" type="button" class="touch-button">
-              <span class="touch-icon">&larr;</span>
-              <span class="touch-label">Gauche</span>
-            </button>
-            <button data-action="right" type="button" class="touch-button">
-              <span class="touch-icon">&rarr;</span>
-              <span class="touch-label">Droite</span>
-            </button>
-          </div>
-          <div class="control-cluster action-cluster">
-            <button data-action="jump" type="button" class="touch-button jump-button">
-              <span class="touch-icon">&uarr;</span>
-              <span class="touch-label">Saut</span>
-            </button>
-            <button data-action="pause" type="button" class="touch-button pause-button">
-              <span class="touch-icon">II</span>
-              <span class="touch-label">Pause</span>
-            </button>
-          </div>
-        </div>
       </section>
     </main>
 
